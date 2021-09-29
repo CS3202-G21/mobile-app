@@ -93,10 +93,13 @@ class AuthStore {
       .then((data) => {
         try {
           runInAction(() => {
-            this.userToken = data.token;
-            this.isAuthenticated = true;
+            console.log(data);
+            if (data.token) {
+              this.userToken = data.token;
+              this.isAuthenticated = true;
+              SecureStore.setItemAsync('userToken', this.userToken);
+            }
           });
-          SecureStore.setItemAsync('userToken', this.userToken);
           return;
         } catch (e) {
           console.log(e);
